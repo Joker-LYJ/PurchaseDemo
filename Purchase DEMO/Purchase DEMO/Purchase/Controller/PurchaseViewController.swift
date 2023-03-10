@@ -50,6 +50,19 @@ class PurchaseViewController:UIViewController {
         return button
     }()
     
+    lazy var restorePurchasesButton: UIButton = {
+        let button = UIButton()
+        button.setTitleColor(.blue, for: .normal)
+        button.setTitleColor(.gray, for: .disabled)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .bold)
+        button.layer.cornerRadius = 8
+        button.layer.borderWidth = 2
+        button.layer.borderColor = UIColor(hex: 0xFF893E).cgColor
+        button.setTitle("恢复购买", for: .normal)
+        button.addTarget(self, action: #selector(restorePurchasesButtonClik), for: .touchUpInside)
+        return button
+    }()
+    
     init(pageType: PurchaseType ){ //使用指定方式来初始化视图控制器。
         super.init(nibName: nil, bundle: nil)
         self.purchasePageType = pageType
@@ -71,13 +84,10 @@ class PurchaseViewController:UIViewController {
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             Purchase.shared.getPrices{
-                self.yearPriceButton.setTitle(Recoder.PurchaseInfomation?.yearPrice, for: .normal)
-                self.yearPriceButton.isEnabled = true
-                self.weekPriceButton.setTitle(Recoder.PurchaseInfomation?.weekPrice, for: .normal)
-                self.weekPriceButton.isEnabled = true
+                self.yearPriceButton.setTitle(UserRecorder.getPrice(productID: K.vipYearID), for: .normal)
+                self.weekPriceButton.setTitle(UserRecorder.getPrice(productID: K.vipWeekID), for: .normal)
+                self.updateUI()
             }
-            
-            self.updateUI()
         }
     }
 }
@@ -89,7 +99,6 @@ extension PurchaseViewController {
     }
     
     @objc func purchaseButtonClik(sender: UIButton){
-        
         if sender == self.yearPriceButton {
             Purchase.shared.purchaseProduct(K.vipYearID) { [weak self ]success, info in
                 guard let self = self else {return}
@@ -106,15 +115,28 @@ extension PurchaseViewController {
             }
         }
     }
+    
+    @objc func restorePurchasesButtonClik() {
+        Purchase.shared.restorePurchases { success in
+            if success {
+                print("恢复购买成功")
+//                promptBox.type = .Success
+//                promptBox.textLabel.text = __("恢复购买成功")
+//                promptBox.completion = { self.dismiss(animated: true) }
+            } else {
+//                promptBox.type = .Failure
+//                promptBox.textLabel.text = Purchase.shared.isSubscribeExpired ? __("订阅已过期") : __("恢复购买失败")
+                print(Purchase.shared.isSubscribeExpired ? __("订阅已过期") : __("恢复购买失败"))
+            }
+//            promptBox.dismiss(delay: 2.0)
+        }
+    }
 }
 
 //MARK: - UI
 extension PurchaseViewController {
     func setupUI() {
-        
-        self.view.addSubviews(closeButton,yearPriceButton,weekPriceButton)
-        
-        
+        self.view.addSubviews(closeButton,yearPriceButton,weekPriceButton,restorePurchasesButton)
     }
     
     func setupConstraints() {
@@ -137,13 +159,20 @@ extension PurchaseViewController {
             make.centerX.equalToSuperview()
             make.top.equalTo(weekPriceButton.snp.bottom).offset(60)
         }
+        
+        restorePurchasesButton.snp.makeConstraints { make in
+            make.bottom.equalTo(yearPriceButton.snp.top).offset(-40)
+            make.centerX.equalToSuperview()
+            make.width.equalTo(100)
+            make.height.equalTo(40)
+        }
     }
     
     
     func updateUI() {
-        if Recoder.PurchaseInfomation?.purchasedStatus == "year" {
+        if UserRecorder.getPurchased(productID: K.vipYearID) {
             self.purchasePageType  = .year
-        } else if Recoder.PurchaseInfomation?.purchasedStatus == "week" {
+        } else if UserRecorder.getPurchased(productID: K.vipWeekID) {
             self.purchasePageType = .week
         } else {
             self.purchasePageType = .no

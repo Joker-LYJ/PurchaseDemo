@@ -32,6 +32,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             MMKV.initialize(rootDir: nil)
         }
         
+        DispatchQueue.global().asyncAfter(deadline: .now() + 1.0) {
+            Purchase.shared.getPrices()
+            Purchase.shared.verifySubscription{}
+        }
+        
         return true
     }
 

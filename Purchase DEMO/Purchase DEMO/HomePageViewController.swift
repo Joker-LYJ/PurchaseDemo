@@ -39,7 +39,7 @@ class HomePageViewController: BaseViewController {
 //MARK: - Aciton
 extension HomePageViewController {
     func netWorkCheck() {
-        Purchase.shared.requestNetworkPermission { [weak self] success in
+        NetworkMannager.shared.requestNetworkPermission { [weak self] success in
             guard let self = self else {return}
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else {return}
@@ -57,9 +57,9 @@ extension HomePageViewController {
         
         var type: PurchaseType = .no
        
-        if Recoder.PurchaseInfomation?.purchasedStatus == "year" {
+        if UserRecorder.getPurchased(productID: K.vipYearID)  {
             type  = .year
-        } else if Recoder.PurchaseInfomation?.purchasedStatus == "week" {
+        } else if UserRecorder.getPurchased(productID: K.vipWeekID) {
             type = .week
         } else {
             type = .no

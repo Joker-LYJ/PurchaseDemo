@@ -11,8 +11,6 @@ enum PurchaseType: String {
     case week
     case year
     case no
-    
-    
 }
 
 class PurchaseModel: NSObject, Codable {

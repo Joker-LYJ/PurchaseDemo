@@ -22,6 +22,7 @@
 		18C0D06629B9BFD0000293E8 /* BaseNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C0D06529B9BFD0000293E8 /* BaseNavigationViewController.swift */; };
 		18C0D06829B9C003000293E8 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C0D06729B9C003000293E8 /* BaseViewController.swift */; };
 		18C0D06A29B9D619000293E8 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C0D06929B9D619000293E8 /* LoadingView.swift */; };
+		18C0D06C29BB0DF1000293E8 /* NetworkMannager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C0D06B29BB0DF1000293E8 /* NetworkMannager.swift */; };
 		98F5F2423428D0F80772AB7F /* Pods_Purchase_DEMO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C7ACD9F71820A5C73823DE5 /* Pods_Purchase_DEMO.framework */; };
 /* End PBXBuildFile section */
 
@@ -44,6 +45,7 @@
 		18C0D06529B9BFD0000293E8 /* BaseNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationViewController.swift; sourceTree = "<group>"; };
 		18C0D06729B9C003000293E8 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		18C0D06929B9D619000293E8 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		18C0D06B29BB0DF1000293E8 /* NetworkMannager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMannager.swift; sourceTree = "<group>"; };
 		66EC086D4BB7A0E2C294E03F /* Pods-Purchase DEMO.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Purchase DEMO.release.xcconfig"; path = "Target Support Files/Pods-Purchase DEMO/Pods-Purchase DEMO.release.xcconfig"; sourceTree = "<group>"; };
 		7C7ACD9F71820A5C73823DE5 /* Pods_Purchase_DEMO.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Purchase_DEMO.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D331D1FE059238D544D0E56F /* Pods-Purchase DEMO.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Purchase DEMO.debug.xcconfig"; path = "Target Support Files/Pods-Purchase DEMO/Pods-Purchase DEMO.debug.xcconfig"; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 				18C0D05129B83B67000293E8 /* Util.swift */,
 				18C0D05429B83C41000293E8 /* Bridging-Header.h */,
 				18C0D05D29B886BA000293E8 /* Constant.swift */,
+				18C0D06B29BB0DF1000293E8 /* NetworkMannager.swift */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -294,6 +297,7 @@
 				18C0D06329B987B5000293E8 /* Recorder.swift in Sources */,
 				18C0D05629B83D81000293E8 /* Purchase.swift in Sources */,
 				18C0D06829B9C003000293E8 /* BaseViewController.swift in Sources */,
+				18C0D06C29BB0DF1000293E8 /* NetworkMannager.swift in Sources */,
 				18C0D04029B837EA000293E8 /* HomePageViewController.swift in Sources */,
 				18C0D06629B9BFD0000293E8 /* BaseNavigationViewController.swift in Sources */,
 				18C0D06A29B9D619000293E8 /* LoadingView.swift in Sources */,
