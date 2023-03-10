@@ -1,0 +1,38 @@
+PODS:
+  - Alamofire (5.6.4)
+  - LookinServer (1.1.5):
+    - LookinServer/Core (= 1.1.5)
+  - LookinServer/Core (1.1.5)
+  - MMKV (1.2.15):
+    - MMKVCore (~> 1.2.15)
+  - MMKVCore (1.2.15)
+  - SnapKit (5.6.0)
+  - SwiftyStoreKit (0.16.1)
+
+DEPENDENCIES:
+  - Alamofire
+  - LookinServer
+  - MMKV
+  - SnapKit
+  - SwiftyStoreKit
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - LookinServer
+    - MMKV
+    - MMKVCore
+    - SnapKit
+    - SwiftyStoreKit
+
+SPEC CHECKSUMS:
+  Alamofire: 4e95d97098eacb88856099c4fc79b526a299e48c
+  LookinServer: 2893f2bae53cbf3fd49bbe1a8ea1745582ef1317
+  MMKV: 7f34558bbb5a33b0eaefae2de4b6a20a2ffdad6f
+  MMKVCore: ddf41b9d9262f058419f9ba7598719af56c02cd3
+  SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
+  SwiftyStoreKit: 6b9c08810269f030586dac1fae8e75871a82e84a
+
+PODFILE CHECKSUM: 9745fc7d12cab6bc3b017124de8cc39c181457f8
+
+COCOAPODS: 1.11.3
