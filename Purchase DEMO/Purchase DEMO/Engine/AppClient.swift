@@ -21,7 +21,7 @@ enum Environment {
     var baseURL: String {
         switch self {
         case .develop:
-            return "http://192.168.50.146:8080"
+            return "http://192.168.50.89:5000"
         case .product:
             return "https://api.highlightee.com"
         }

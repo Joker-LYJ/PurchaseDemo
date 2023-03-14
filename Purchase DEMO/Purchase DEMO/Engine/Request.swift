@@ -76,7 +76,7 @@ public func request(_ url: String,
         print(request.url)
         
     }).response { response in
-        print(response.result)
+        print(response.data)
     }
     
 //    request(URL(string: url), method: method, parameters: parameters, headers: headers, key: key, timeout: timeout, responseHandler: responseHandler)
