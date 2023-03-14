@@ -76,7 +76,19 @@ public func request(_ url: String,
         print(request.url)
         
     }).response { response in
-        print(response.data)
+        if let data = response.data {
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data, options: [])
+                    // 处理JSON对象
+                    print(json)
+                } catch {
+                    // JSON解析错误
+                    print(error.localizedDescription)
+                }
+            } else {
+                // 请求失败，获取到错误信息
+                print(response.error?.localizedDescription ?? "Unknown error")
+            }
     }
     
 //    request(URL(string: url), method: method, parameters: parameters, headers: headers, key: key, timeout: timeout, responseHandler: responseHandler)
