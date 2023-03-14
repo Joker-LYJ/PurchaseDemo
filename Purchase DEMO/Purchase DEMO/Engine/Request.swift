@@ -30,7 +30,7 @@ public func request(_ url: String,
                     timeout: TimeInterval,
                     responseHandler: Response) {
 
-    AF.request(url, method: method, headers: headers,requestModifier: { request in
+    AF.request(url, method: method, requestModifier: { request in
         request.cachePolicy = .reloadIgnoringLocalCacheData
         request.timeoutInterval = timeout
         switch method {
