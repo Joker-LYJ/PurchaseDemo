@@ -89,6 +89,8 @@ class PurchaseViewController:UIViewController {
                 self.updateUI()
             }
         }
+        
+        Purchase.shared.getUUID()
     }
 }
 
@@ -118,17 +120,12 @@ extension PurchaseViewController {
     
     @objc func restorePurchasesButtonClik() {
         Purchase.shared.restorePurchases { success in
+            self.updateUI()
             if success {
                 print("恢复购买成功")
-//                promptBox.type = .Success
-//                promptBox.textLabel.text = __("恢复购买成功")
-//                promptBox.completion = { self.dismiss(animated: true) }
             } else {
-//                promptBox.type = .Failure
-//                promptBox.textLabel.text = Purchase.shared.isSubscribeExpired ? __("订阅已过期") : __("恢复购买失败")
                 print(Purchase.shared.isSubscribeExpired ? __("订阅已过期") : __("恢复购买失败"))
             }
-//            promptBox.dismiss(delay: 2.0)
         }
     }
 }
@@ -137,6 +134,11 @@ extension PurchaseViewController {
 extension PurchaseViewController {
     func setupUI() {
         self.view.addSubviews(closeButton,yearPriceButton,weekPriceButton,restorePurchasesButton)
+        
+        self.title = "普通内购页面"
+        self.view.backgroundColor = .yellow
+        self.weekPriceButton.isEnabled = true
+        self.yearPriceButton.isEnabled = true
     }
     
     func setupConstraints() {
@@ -170,9 +172,9 @@ extension PurchaseViewController {
     
     
     func updateUI() {
-        if UserRecorder.getPurchased(productID: K.vipYearID) {
+        if UserRecorder.getPurchased(productID: K.vipYearID),!Purchase.shared.isSubscribeExpired {
             self.purchasePageType  = .year
-        } else if UserRecorder.getPurchased(productID: K.vipWeekID) {
+        } else if UserRecorder.getPurchased(productID: K.vipWeekID),!Purchase.shared.isSubscribeExpired {
             self.purchasePageType = .week
         } else {
             self.purchasePageType = .no

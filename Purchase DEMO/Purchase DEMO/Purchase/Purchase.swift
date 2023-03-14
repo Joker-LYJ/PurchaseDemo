@@ -17,38 +17,11 @@ class Purchase: NSObject {
     
     let loadingView = LoadingView()
     
-    // didFinishLaunchingWithOptions 调用
-    func completeTransactions() {
-        SwiftyStoreKit.completeTransactions() { purchases in
-            for purchase in purchases {
-                switch purchase.transaction.transactionState {
-                case .purchased, .restored:
-                    self.handleTransaction(purchase.transaction) { _, _ in }
-                case .failed, .purchasing, .deferred:
-                    break
-                }
-            }
-        }
-    }
+    let uuid = UUID()
     
-    func handleTransaction(_ transaction: PaymentTransaction?, completion: @escaping (Bool, String?) -> Void) {
-        print(#function)
-        SwiftyStoreKit.fetchReceipt(forceRefresh: true) { result in
-            switch result {
-            case .success(_):
-                if let transaction = transaction {SwiftyStoreKit.finishTransaction(transaction)
-                }
-                completion(true, nil)
-            case .error(let error):
-                debugPrint("Fetch receipt failed: \(error)")
-                completion(false, error.localizedDescription)
-
-            }
-        }
-    }
     
     /// 订阅过期日期，默认过期
-    var expireDate: Date {
+    private var expireDate: Date {
         set {
             debugPrint("expireDate newValue: ", newValue)
             UserRecorder.vipExpireDate = newValue
@@ -67,8 +40,44 @@ class Purchase: NSObject {
             return false
         }
     }
-
     
+    func getUUID() {
+        let uuidString = uuid.uuidString
+        print(uuidString)
+    }
+    
+    
+    // didFinishLaunchingWithOptions 调用,用于完成之前未完成的交易。如果你没有在应用程序启动时调用它，可能会导致交易未被正确处理，从而导致用户被多次收费或无法恢复购买等问题。
+    func completeTransactions() {
+        SwiftyStoreKit.completeTransactions() { purchases in
+            for purchase in purchases {
+                switch purchase.transaction.transactionState {
+                case .purchased, .restored:
+                    self.handleTransaction(purchase.transaction) { _, _ in }
+                case .failed, .purchasing, .deferred:
+                    break
+                }
+            }
+        }
+    }
+    
+    //处理交易
+    func handleTransaction(_ transaction: PaymentTransaction?, completion: @escaping (Bool, String?) -> Void) {
+        print(#function)
+        SwiftyStoreKit.fetchReceipt(forceRefresh: true) { result in
+            switch result {
+            case .success(_):
+                if let transaction = transaction {SwiftyStoreKit.finishTransaction(transaction)
+                }
+                completion(true, nil)
+            case .error(let error):
+                debugPrint("Fetch receipt failed: \(error)")
+                completion(false, error.localizedDescription)
+
+            }
+        }
+    }
+
     //获取价格
     func getPrices(complete:(()->Void)? = nil)  {
         let productIDs: Set<String> = [
@@ -100,7 +109,7 @@ class Purchase: NSObject {
                     logMesg.append(contentsOf: "Product: \(product.localizedDescription), price: \(priceString )\n")
                 }
             }
-//            NotificationCenter.default.post(name: NotificationName.purchasePriceDidChange, object: nil)
+
             debugPrint(logMesg)
             
             
@@ -110,7 +119,6 @@ class Purchase: NSObject {
             
             if let error = result.error {
                 debugPrint("获取价格失败：", error)
-//                showToast(text: __("网络连接超时，请检查网络"))
             }
                 
             UserRecorder.setPrice(price: weekPrice, productID: K.vipWeekID)
@@ -141,7 +149,6 @@ class Purchase: NSObject {
                 debugPrint("购买失败", error.localizedDescription)
                 self.loadingView.hide()
                 completion(false, error.localizedDescription)
-                
             }
         }
     }
@@ -158,52 +165,56 @@ class Purchase: NSObject {
         SwiftyStoreKit.verifyReceipt(using: appleValidator, forceRefresh: true) {  (result) in
             switch result {
             case .success(let receipt):
-                var theExpiryDate = Date.distantPast
-             
+                
+                self.getExpireDate(receipt: receipt, productId: K.vipWeekID)
+                
+                self.getExpireDate(receipt: receipt, productId: K.vipYearID)
+                
                 // 周订阅
-                let weekPurchaseResult = SwiftyStoreKit.verifySubscription(
-                    ofType: .autoRenewable,
-                    productId: K.vipWeekID,
-                    inReceipt: receipt
-                )
-                switch weekPurchaseResult {
-                case .purchased(let expiryDate, _):
-                    debugPrint("\(K.vipWeekID) is valid until \(expiryDate)\n")
-                    theExpiryDate = expiryDate
-                 
-                    self.handlePurchaseSuccess(productId: K.vipWeekID)
-                case .expired(let expiryDate, _):
-                    debugPrint("\(K.vipWeekID) is expire \n")
-                    theExpiryDate = expiryDate
-              
-                case .notPurchased:
-                    break
-                }
+//                let weekPurchaseResult = SwiftyStoreKit.verifySubscription(
+//                    ofType: .autoRenewable,
+//                    productId: K.vipWeekID,
+//                    inReceipt: receipt
+//                )
                 
-                // 年订阅
-                let yearPurchaseResult = SwiftyStoreKit.verifySubscription(
-                    ofType: .autoRenewable,
-                    productId: K.vipYearID,
-                    inReceipt: receipt
-                )
-                switch yearPurchaseResult {
-                case .purchased(let expiryDate, _):
-                    debugPrint("\(K.vipYearID) is valid until \(expiryDate)\n")
-                    theExpiryDate = expiryDate
-                 
-                    self.handlePurchaseSuccess(productId: K.vipYearID)
-                case .expired(let expiryDate, _):
-                    debugPrint("\(K.vipYearID) is expire \n")
-                    theExpiryDate = expiryDate
-                    
-                case .notPurchased:
-                    break
-                }
+                
+                
+//                switch weekPurchaseResult {
+//                case .purchased(let expiryDate, _):
+//                    debugPrint("\(K.vipWeekID) 有效期至 \(expiryDate)\n")
+//                    theExpiryDate = expiryDate
+//
+//                    self.handlePurchaseSuccess(productId: K.vipWeekID)
+//                case .expired(let expiryDate, _):
+//                    debugPrint("\(K.vipWeekID) 已过期 \n")
+//                    theExpiryDate = expiryDate
+//
+//                case .notPurchased:
+//                    break
+//                }
+//
+//                // 年订阅
+//                let yearPurchaseResult = SwiftyStoreKit.verifySubscription(
+//                    ofType: .autoRenewable,
+//                    productId: K.vipYearID,
+//                    inReceipt: receipt
+//                )
+//                switch yearPurchaseResult {
+//                case .purchased(let expiryDate, _):
+//                    debugPrint("\(K.vipYearID) 有效期至 \(expiryDate)\n")
+//                    theExpiryDate = expiryDate
+//
+//                    self.handlePurchaseSuccess(productId: K.vipYearID)
+//                case .expired(let expiryDate, _):
+//                    debugPrint("\(K.vipYearID) 已过期 \n")
+//                    theExpiryDate = expiryDate
+//
+//                case .notPurchased:
+//                    break
+//                }
             
-                
-                self.expireDate = theExpiryDate
+               
 
-//                NotificationCenter.default.post(name: NotificationName.purchaseDidChange, object: nil)
                 debugPrint(
                     """
                     当前时间: \(Date().description(with: Locale.current))
@@ -217,7 +228,32 @@ class Purchase: NSObject {
         }
     }
     
-    /// 内购购买成功
+    func getExpireDate(receipt: ReceiptInfo, productId: String){
+        var theExpiryDate = Date.distantPast
+        
+        let purchaseResult = SwiftyStoreKit.verifySubscription(
+            ofType: .autoRenewable,
+            productId: productId,
+            inReceipt: receipt
+        )
+        switch purchaseResult {
+        case .purchased(let expiryDate, _):
+            debugPrint("\(productId) 有效期至 \(expiryDate)\n")
+            //记录订阅过期时间
+            self.expireDate = theExpiryDate
+
+            self.handlePurchaseSuccess(productId: productId)
+        case .expired(let expiryDate, _):
+            debugPrint("\(productId) 已过期 \n")
+            //记录订阅过期时间
+            self.expireDate = theExpiryDate
+      
+        case .notPurchased:
+            break
+        }
+    }
+    
+    //内购购买成功
     func handlePurchaseSuccess(productId: String) {
         if productId == K.vipYearID {
             UserRecorder.setPurchased(purchase: true, productID: K.vipYearID)
@@ -228,10 +264,12 @@ class Purchase: NSObject {
         }
     }
     
+    //恢复购买
     func restorePurchases(completion: @escaping ((Bool) -> Void)) {
         fetchReceipt { (success, _) in completion(success) }
     }
     
+    //获取账单
     private func fetchReceipt(forceRefresh: Bool = true, completion: @escaping ((Bool, String?)->Void)) {
         SwiftyStoreKit.fetchReceipt(forceRefresh: forceRefresh) { result in
             switch result {

@@ -1,5 +1,7 @@
 PODS:
   - Alamofire (5.6.4)
+  - CryptoSwift (1.6.0)
+  - KeychainSwift (20.0.0)
   - LookinServer (1.1.5):
     - LookinServer/Core (= 1.1.5)
   - LookinServer/Core (1.1.5)
@@ -7,32 +9,42 @@ PODS:
     - MMKVCore (~> 1.2.15)
   - MMKVCore (1.2.15)
   - SnapKit (5.6.0)
+  - SwiftyJSON (4.3.0)
   - SwiftyStoreKit (0.16.1)
 
 DEPENDENCIES:
   - Alamofire
+  - CryptoSwift
+  - KeychainSwift
   - LookinServer
   - MMKV
   - SnapKit
+  - SwiftyJSON (~> 4.0)
   - SwiftyStoreKit
 
 SPEC REPOS:
   trunk:
     - Alamofire
+    - CryptoSwift
+    - KeychainSwift
     - LookinServer
     - MMKV
     - MMKVCore
     - SnapKit
+    - SwiftyJSON
     - SwiftyStoreKit
 
 SPEC CHECKSUMS:
   Alamofire: 4e95d97098eacb88856099c4fc79b526a299e48c
+  CryptoSwift: 562f8eceb40e80796fffc668b0cad9313284cfa6
+  KeychainSwift: 0ce6a4d13f7228054d1a71bb1b500448fb2ab837
   LookinServer: 2893f2bae53cbf3fd49bbe1a8ea1745582ef1317
   MMKV: 7f34558bbb5a33b0eaefae2de4b6a20a2ffdad6f
   MMKVCore: ddf41b9d9262f058419f9ba7598719af56c02cd3
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
+  SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
   SwiftyStoreKit: 6b9c08810269f030586dac1fae8e75871a82e84a
 
-PODFILE CHECKSUM: 9745fc7d12cab6bc3b017124de8cc39c181457f8
+PODFILE CHECKSUM: 34fe06872995f66345a058557fb3c8b19ff20815
 
 COCOAPODS: 1.11.3

@@ -7,6 +7,9 @@ target 'Purchase DEMO' do
   pod 'SwiftyStoreKit'
   pod 'Alamofire'
   pod 'MMKV'
+  pod 'KeychainSwift'
+  pod 'SwiftyJSON', '~> 4.0'
+  pod 'CryptoSwift'
   
   pod 'LookinServer', :configurations => ['Debug']
 

@@ -9,6 +9,24 @@ import UIKit
 
 class HomePageViewController: BaseViewController {
     
+    lazy var networkRequestButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("网络请求", for: .normal)
+        button.backgroundColor = UIColor.purple
+        button.layer.cornerRadius = 8
+        button.addTarget(self, action: #selector(networkRequestButtonClick), for: .touchUpInside)
+        return button
+    }()
+    
+    lazy var getInfomationButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("获取信息", for: .normal)
+        button.backgroundColor = UIColor.purple
+        button.layer.cornerRadius = 8
+        button.addTarget(self, action: #selector(getInfomationButtonClick), for: .touchUpInside)
+        return button
+    }()
+    
     lazy var informationLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
@@ -65,11 +83,19 @@ extension HomePageViewController {
             type = .no
         }
   
-        var vc = PurchaseViewController(pageType: type)
+        let vc = PurchaseViewController(pageType: type)
         let navController = BaseNavigationController(rootViewController: vc)
         navController.modalTransitionStyle = .crossDissolve
         navController.modalPresentationStyle = .fullScreen
         self.present(navController, animated: true)
+    }
+    
+    @objc func networkRequestButtonClick() {
+        AppClient.shared.startUp(.hot)
+    }
+    
+    @objc func getInfomationButtonClick() {
+        
     }
 }
 
@@ -77,7 +103,7 @@ extension HomePageViewController {
 extension HomePageViewController {
     func setupUI() {
         self.view.backgroundColor = .white
-        self.view.addSubviews(informationLabel,purchaseButton)
+        self.view.addSubviews(informationLabel,purchaseButton,networkRequestButton)
     }
     
     func setupConstraints() {
@@ -91,6 +117,13 @@ extension HomePageViewController {
             make.width.equalTo(80)
             make.height.equalTo(40)
             make.top.equalTo(informationLabel.snp.bottom).offset(40)
+        }
+        
+        networkRequestButton.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.width.equalTo(80)
+            make.height.equalTo(40)
+            make.top.equalTo(purchaseButton.snp.bottom).offset(40)
         }
     }
 }

@@ -7,11 +7,13 @@
 
 import Foundation
 import MMKV
-
+import KeychainSwift
 
 class UserRecorder {
     
-    static let mmkv = MMKV(mmapID: K.MMKVID, rootPath: K.Path.document.path) //其中mmapID表示多进程共享内存的ID，cryptKey表示加密密钥，如果不需要加密可以传nil。对于多进程模式，需要在不同的进程中使用相同的mmapID和cryptKey才能实现数据共享。
+    static let mmkv = MMKV(mmapID: K.MMKVID, rootPath: K.Path.document.path) //其中mmapID表示多进程共享内存的ID，cryptKey表示加密密钥，如果不需要加密可以传nil。对于多进程模式，需要在不同的进程中使用相同的mmapID和cryptKey才能实现数据共享
+    
+    static let UserIdKey = "chat.userid"
     
 //    static var PurchaseInfomation: PurchaseModel? {
 //        set {
@@ -33,7 +35,30 @@ class UserRecorder {
 //            return nil
 //        }
 //    }
+    
+    // 用户ID
+    static var userID: String? {
+        set {
+            let value: String = newValue ?? ""
+            let keychain = KeychainSwift()
+            keychain.set(value, forKey: UserRecorder.UserIdKey)
 
+            if let mmkv = self.mmkv {
+                mmkv.set(value, forKey: UserRecorder.UserIdKey)
+            }
+        }
+        get {
+            let keychain = KeychainSwift()
+
+            // keychain
+            if let userID = keychain.get(UserRecorder.UserIdKey) {
+                return userID
+            }
+
+            // mmkv
+            return mmkv?.string(forKey: UserRecorder.UserIdKey)
+        }
+    }
 }
 
 // MARK: - Purchase

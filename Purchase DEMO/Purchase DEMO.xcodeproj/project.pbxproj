@@ -23,6 +23,12 @@
 		18C0D06829B9C003000293E8 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C0D06729B9C003000293E8 /* BaseViewController.swift */; };
 		18C0D06A29B9D619000293E8 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C0D06929B9D619000293E8 /* LoadingView.swift */; };
 		18C0D06C29BB0DF1000293E8 /* NetworkMannager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C0D06B29BB0DF1000293E8 /* NetworkMannager.swift */; };
+		18C0D06E29BF0E30000293E8 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C0D06D29BF0E30000293E8 /* Request.swift */; };
+		18C0D07029BF0F79000293E8 /* AppClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C0D06F29BF0F79000293E8 /* AppClient.swift */; };
+		18C0D07229BF0FF8000293E8 /* HttpRequestAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C0D07129BF0FF8000293E8 /* HttpRequestAPI.swift */; };
+		18C0D07429BF104E000293E8 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C0D07329BF104E000293E8 /* User.swift */; };
+		18C0D07729BF13A3000293E8 /* Util+LanguageCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C0D07629BF13A3000293E8 /* Util+LanguageCode.swift */; };
+		18C0D07929BF141D000293E8 /* Util + Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C0D07829BF141D000293E8 /* Util + Device.swift */; };
 		98F5F2423428D0F80772AB7F /* Pods_Purchase_DEMO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C7ACD9F71820A5C73823DE5 /* Pods_Purchase_DEMO.framework */; };
 /* End PBXBuildFile section */
 
@@ -46,6 +52,12 @@
 		18C0D06729B9C003000293E8 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		18C0D06929B9D619000293E8 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		18C0D06B29BB0DF1000293E8 /* NetworkMannager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMannager.swift; sourceTree = "<group>"; };
+		18C0D06D29BF0E30000293E8 /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
+		18C0D06F29BF0F79000293E8 /* AppClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppClient.swift; sourceTree = "<group>"; };
+		18C0D07129BF0FF8000293E8 /* HttpRequestAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpRequestAPI.swift; sourceTree = "<group>"; };
+		18C0D07329BF104E000293E8 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		18C0D07629BF13A3000293E8 /* Util+LanguageCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Util+LanguageCode.swift"; sourceTree = "<group>"; };
+		18C0D07829BF141D000293E8 /* Util + Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Util + Device.swift"; sourceTree = "<group>"; };
 		66EC086D4BB7A0E2C294E03F /* Pods-Purchase DEMO.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Purchase DEMO.release.xcconfig"; path = "Target Support Files/Pods-Purchase DEMO/Pods-Purchase DEMO.release.xcconfig"; sourceTree = "<group>"; };
 		7C7ACD9F71820A5C73823DE5 /* Pods_Purchase_DEMO.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Purchase_DEMO.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D331D1FE059238D544D0E56F /* Pods-Purchase DEMO.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Purchase DEMO.debug.xcconfig"; path = "Target Support Files/Pods-Purchase DEMO/Pods-Purchase DEMO.debug.xcconfig"; sourceTree = "<group>"; };
@@ -84,7 +96,8 @@
 		18C0D03A29B837EA000293E8 /* Purchase DEMO */ = {
 			isa = PBXGroup;
 			children = (
-				18C0D05329B83C03000293E8 /* Resource */,
+				18C0D07529BF1057000293E8 /* Model */,
+				18C0D05329B83C03000293E8 /* Engine */,
 				18C0D05029B83B52000293E8 /* General */,
 				18C0D04F29B838F6000293E8 /* Purchase */,
 				18C0D03B29B837EA000293E8 /* AppDelegate.swift */,
@@ -121,11 +134,16 @@
 			path = General;
 			sourceTree = "<group>";
 		};
-		18C0D05329B83C03000293E8 /* Resource */ = {
+		18C0D05329B83C03000293E8 /* Engine */ = {
 			isa = PBXGroup;
 			children = (
+				18C0D06D29BF0E30000293E8 /* Request.swift */,
+				18C0D06F29BF0F79000293E8 /* AppClient.swift */,
+				18C0D07129BF0FF8000293E8 /* HttpRequestAPI.swift */,
+				18C0D07629BF13A3000293E8 /* Util+LanguageCode.swift */,
+				18C0D07829BF141D000293E8 /* Util + Device.swift */,
 			);
-			path = Resource;
+			path = Engine;
 			sourceTree = "<group>";
 		};
 		18C0D05729B874A3000293E8 /* View */ = {
@@ -160,6 +178,14 @@
 				18C0D06729B9C003000293E8 /* BaseViewController.swift */,
 			);
 			path = Compoent;
+			sourceTree = "<group>";
+		};
+		18C0D07529BF1057000293E8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				18C0D07329BF104E000293E8 /* User.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		5DE31FF59D330B7B9C9B8C7D /* Frameworks */ = {
@@ -294,15 +320,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18C0D07029BF0F79000293E8 /* AppClient.swift in Sources */,
 				18C0D06329B987B5000293E8 /* Recorder.swift in Sources */,
+				18C0D07229BF0FF8000293E8 /* HttpRequestAPI.swift in Sources */,
 				18C0D05629B83D81000293E8 /* Purchase.swift in Sources */,
 				18C0D06829B9C003000293E8 /* BaseViewController.swift in Sources */,
 				18C0D06C29BB0DF1000293E8 /* NetworkMannager.swift in Sources */,
 				18C0D04029B837EA000293E8 /* HomePageViewController.swift in Sources */,
 				18C0D06629B9BFD0000293E8 /* BaseNavigationViewController.swift in Sources */,
+				18C0D07729BF13A3000293E8 /* Util+LanguageCode.swift in Sources */,
 				18C0D06A29B9D619000293E8 /* LoadingView.swift in Sources */,
 				18C0D06129B983A8000293E8 /* PurchaseModel.swift in Sources */,
+				18C0D07429BF104E000293E8 /* User.swift in Sources */,
 				18C0D05229B83B67000293E8 /* Util.swift in Sources */,
+				18C0D06E29BF0E30000293E8 /* Request.swift in Sources */,
+				18C0D07929BF141D000293E8 /* Util + Device.swift in Sources */,
 				18C0D05929B874C6000293E8 /* NoConnectionView.swift in Sources */,
 				18C0D03C29B837EA000293E8 /* AppDelegate.swift in Sources */,
 				18C0D05B29B87DFE000293E8 /* PurchaseViewController.swift in Sources */,
