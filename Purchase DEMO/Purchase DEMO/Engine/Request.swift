@@ -59,7 +59,7 @@ public func request(_ url: String,
                 }
                 else if contentType == "application/x-www-form-urlencoded" {
                     let components = parameters.map { (k, v) -> String in
-                        return "\(k)=\(v ?? "")"
+                        return "\(k)=\(v)"
                     }
                     request.httpBody = components.joined(separator: "&").data(using: .utf8)
                 }
@@ -91,7 +91,6 @@ public func request(_ url: String,
             }
     }
     
-//    request(URL(string: url), method: method, parameters: parameters, headers: headers, key: key, timeout: timeout, responseHandler: responseHandler)
 }
 
 // reponseHandler: (data, success, response, error) -> Void
