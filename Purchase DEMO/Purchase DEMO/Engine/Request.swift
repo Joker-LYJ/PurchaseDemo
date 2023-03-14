@@ -29,12 +29,10 @@ public func request(_ url: String,
                     key: [UInt8]? = nil,
                     timeout: TimeInterval,
                     responseHandler: Response) {
-    
-//    let cachePolicy: URLRequest.CachePolicy = .reloadIgnoringLocalCacheData
-//    var request:URLRequest = URLRequest(url: URL(string: url)!, cachePolicy: cachePolicy, timeoutInterval: timeout)
-//
 
     AF.request(url, method: method, headers: headers,requestModifier: { request in
+        request.cachePolicy = .reloadIgnoringLocalCacheData
+        request.timeoutInterval = timeout
         switch method {
         case .put,.post:
             if let parameters = parameters {
